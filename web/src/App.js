@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import ProductsProvider from "./context/ProductsProvider";
 import Home from "./pages/Home";
 import ShoppingCart from "./pages/ShoppingCart";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={ <Home /> } />
             <Route path="/shopping" element={ <ShoppingCart /> } />
+            <Route path="*" element={ <NotFound />} />
           </Routes>
       </ProductsProvider>
     </div>
