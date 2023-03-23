@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "675493603078",
+    "project_id": "cognydatabase",
+    "storage_bucket": "cognydatabase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675493603078:android:3fa0f262eef47ff9852087",
+        "android_client_info": {
+          "package_name": "com.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "675493603078-6r1jdut009q464ekapplj5qreu33923s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYjAQjCuBtbrV7oCenLSJhxB0JKbN_c9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "675493603078-6r1jdut009q464ekapplj5qreu33923s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
