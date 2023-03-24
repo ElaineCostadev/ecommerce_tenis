@@ -1,5 +1,6 @@
 import { getDocs, collection } from "firebase/firestore";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { Vibration } from "react-native";
 import { db } from "../config/firebaseConnectionApp";
 
 export const ProductsContextApp = createContext();
@@ -7,7 +8,8 @@ export const ProductsContextApp = createContext();
 export const ProductsProviderApp = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [card, setCard] = useState([]);
-  const [message, setMessage] = useState(false)
+  const [message, setMessage] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
 
   const productsCollectionRef = collection(db, "Products")
 
@@ -41,14 +43,18 @@ export const ProductsProviderApp = ({ children }) => {
       ]);
     }
     if (productInCart) {
-      setCard(card.map((cardItem) => ({
+      setCard(card.filter((cardItem) => (
+        {
           ...cardItem,
           quantity: Number(cardItem.quantity) + 1
         })))
-
-      // setCard({quantity: quantity += 1})
-      // setMessage(true)
-      // return setTimeout(() => setMessage(false), 1000)
+      setShowMessage(true)
+      Vibration.vibrate()
+      setMessage('Produto está no carrinho')
+      return setTimeout(() => {
+        setMessage(null)
+        setShowMessage(false)
+      }, 1500)
     }
   }
 
@@ -62,6 +68,9 @@ export const ProductsProviderApp = ({ children }) => {
     card,
     setCard,
     message,
+    setMessage,
+    showMessage,
+    setShowMessage,
     addToCard,
     removeButtom,
   }
