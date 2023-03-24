@@ -1,15 +1,23 @@
-import { View, Text, TouchableOpacity, Image, ImageBackground } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, Vibration } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useEffect, useState } from 'react'
 import { ProductsContextApp } from '../context/ProductsContextApp';
-import { FlatList } from 'react-native-gesture-handler';
 import { db } from "../config/firebaseConnectionApp";
 import styles from '../styles/ShoppingCard.styles';
 import { addDoc, collection } from 'firebase/firestore';
 
 const ShoppingCard = () => {
-  const { card, setCard, removeButtom } = useContext(ProductsContextApp);
+  const {
+    card,
+    setCard,
+    removeButtom,
+    message,
+    setMessage,
+    showMessage,
+    setShowMessage
+  } = useContext(ProductsContextApp);
   const [totalPrice, setTotalPrice] = useState();
+
 
   const navigation = useNavigation(); 
   const checkoutCollectionRef = collection(db, "checkout")
@@ -27,10 +35,21 @@ const ShoppingCard = () => {
         quantity: Number(cardItem.quantity) + 1,
       }
       : cardItem));
-
     setCard(updatedCart);
     return;
   }
+  
+  const validationQuantity = (id) => {
+    card.filter((cardItem) => {
+      if (cardItem.quantity == 1 && cardItem.id === id.id) {
+        Vibration.vibrate()
+        setShowMessage(true)
+        setMessage('Para excluir, clique no X')
+      }
+    })
+    setTimeout(() => setShowMessage(false), 2000)
+    }
+
 
   const subQuantity = (id) => {
     const updatedCart = card.map((cardItem) => (
@@ -38,11 +57,12 @@ const ShoppingCard = () => {
       {
       ...cardItem,
       quantity: Number(cardItem.quantity) - 1
-      } : cardItem ));
-
-        setCard(updatedCart);
-    return;
+      }: cardItem ));
+      validationQuantity(id);
+      setCard(updatedCart);
+    // return;
   }
+
 
   const subTotal = (price, quantity) => {
     return (Number(price) * Number(quantity)).toFixed(2)
@@ -59,11 +79,20 @@ const ShoppingCard = () => {
       }
       const savedInDB = await addDoc(checkoutCollectionRef, savedWithouImage)
       if(savedInDB) {
-        // setMessage(true)
+        setShowMessage(true)
+        setMessage("Produto enviado com sucesso")
         setTotalPrice(null)
         setCard([])
-        navigation.navigate('Home')
-        // setTimeout(() => setMessage(false), 1000) 
+
+        setTimeout(() => {
+          setMessage(null)
+          setShowMessage(false)
+        }, 1500) 
+        
+        setTimeout(() => {
+          navigation.navigate('Home')
+        }, 2000) 
+
         return saveCheckoutDb
       }
     })
@@ -71,6 +100,8 @@ const ShoppingCard = () => {
 
   return (
     <View style={styles.shoppingContainer}>
+      { showMessage && <Text style={styles.messageQuantity}>{message}</Text>}
+      
       <FlatList
           showsVerticalScrollIndicator={false}
           data={card}
@@ -79,40 +110,44 @@ const ShoppingCard = () => {
               <View style={styles.cardContainer}>
 
                 <View>
-                <Text style={styles.brandText}>{item.brand}</Text>
-                <TouchableOpacity
-                  onPress={ () => removeButtom({id: item.id})}
-                  style={styles.removeButtom}>
-                  <Text style={styles.removeTextButtom}>X</Text>
-                </TouchableOpacity>
-                <Image
-                  style={ styles.cardImage}
-                  source={{ uri: item.urlImage }}
-                />
+                  <Text style={styles.brandText}>{item.brand}</Text>
+                  <TouchableOpacity
+                    onPress={ () => removeButtom({id: item.id})}
+                    style={styles.removeButtom}>
+                    <Text style={styles.removeTextButtom}>X</Text>
+                  </TouchableOpacity>
+                  <Image
+                    style={ styles.cardImage}
+                    source={{ uri: item.urlImage }}
+                  />
                 </View>
-
+                
                 <Text style={styles.descriptionText}>{item.description}</Text>
                 <Text style={styles.priceText}>R$ {item.price},00</Text>
 
                 <View style={styles.quantityContainer}>
-                <TouchableOpacity
-                  onPress={ () => addQuantity({id: item.id})}
-                  style={styles.quantityButtom}>
-                  <Text style={styles.quantityButtomText}>+</Text>
-                </TouchableOpacity>
-                <Text style={styles.quantity}>{item.quantity}</Text>
-                <TouchableOpacity
-                  onPress={ () => subQuantity({id: item.id})}
-                  style={styles.quantityButtom}>
-                  <Text style={styles.quantityButtomText}>-</Text>
-                </TouchableOpacity>
-                <Text style={styles.subTotal}>R$ {subTotal(item.price, item.quantity)}</Text>
-                </View>                
+                  <TouchableOpacity
+                    onPress={ () => addQuantity({id: item.id})}
+                    style={styles.quantityButtom}>
+                    <Text style={styles.quantityButtomText}>+</Text>
+                  </TouchableOpacity>
+                  <Text style={styles.quantity}>{item.quantity}</Text>
+                  <TouchableOpacity
+                    onPress={ () => subQuantity({id: item.id})}
+                    style={styles.quantityButtom}>
+                    <Text style={styles.quantityButtomText}>-</Text>
+                  </TouchableOpacity>
+                  
+                  <Text style={styles.subTotal}>R$ {subTotal(item.price, item.quantity)}</Text>
+                
+                </View>     
+
               </View>
             )
           }}
           keyExtractor={item => item.id}>
       </FlatList>
+      
       <View style={styles.totalContainer}>
       <Text style={styles.total}>Total</Text>
       <Text style={styles.totalText}>R$ {totalPrice}</Text>
@@ -122,6 +157,7 @@ const ShoppingCard = () => {
         <Text style={styles.finishOrderText}>FINALIZAR PEDIDO</Text>
       </TouchableOpacity>
       </View>
+                  
     </View>
   )
 }
