@@ -14,8 +14,10 @@
 
 ## Rodar o projeto
 
-Favor o git clone do repositorio.
+Fazer clone do repositorio:
+`git clone git@github.com:ElaineCostadev/cogny-front-end-test.git`
 `cd cogny-front-end-test`
+`git checkout web-cogny`
 
 Para rodar a aplicação web
 `cd web`
