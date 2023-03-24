@@ -12,13 +12,28 @@
 - [React Native](https://facebook.github.io/react-native/)
 - Firebase
 
-## Descrição
+## Rodar o projeto
+
+Favor o git clone do repositorio.
+`cd cogny-front-end-test`
+
+Para rodar a aplicação web
+`cd web`
+`npm start`
+
+Para rodar a aplicação mobile
+`cd mobile`
+`npx expo start`
+
+Caso nao tenha o app do expo go - baixe na play store ou apple store
+
+ ## Descrição
 
 Cognyshoes é um e-commerce proposto pela Cogny para avaliar as habilidades de possíveis novos colaboradoes.
 
 A proposta consiste em desenvolver uma simples aplicação, com versões web e mobile, para listagem de produtos e criação de pedidos, integrando com o Firebase.
 
-Deve-se criar um projeto no Firebase e integrá-lo aos projetos web e mobile disponibilizados nesse teste, fazendo com que compartilhem os mesmos dados para desenvolver os seguintes pontos:
+<!-- Deve-se criar um projeto no Firebase e integrá-lo aos projetos web e mobile disponibilizados nesse teste, fazendo com que compartilhem os mesmos dados para desenvolver os seguintes pontos:
 
 1. No Firebase, use o Firestore Database para criar suas coleções. 
 2. Crie uma coleção para armazenar os produtos, cadastrando no mínimo 10 produtos, com Descrição, Preço e Imagem Url.
@@ -45,4 +60,4 @@ A entrega do código deve ser realizada através do GitHub seguindo as seguintes
 
 ## Links úteis
 
-- [Guias Firebase](https://firebase.google.com/docs/guides?authuser=2&%3Bhl=pt&hl=pt#acesse-o-firebase-na-sua-plataforma)
+- [Guias Firebase](https://firebase.google.com/docs/guides?authuser=2&%3Bhl=pt&hl=pt#acesse-o-firebase-na-sua-plataforma) -->
