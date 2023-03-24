@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer sytle={styles.container}> 
+    <NavigationContainer> 
         <Stack.Navigator initialRouteName='Home'
         >
             <Stack.Screen
