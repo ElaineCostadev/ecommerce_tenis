@@ -15,16 +15,23 @@
 ## Rodar o projeto
 
 Fazer clone do repositorio:
+<br/>
 `git clone git@github.com:ElaineCostadev/cogny-front-end-test.git`
+<br/>
 `cd cogny-front-end-test`
+<br/>
 `git checkout web-cogny`
 
 Para rodar a aplicação web
+<br/>
 `cd web`
+<br/>
 `npm start`
 
 Para rodar a aplicação mobile
+<br/>
 `cd mobile`
+<br/>
 `npx expo start`
 
 Caso nao tenha o app do expo go - baixe na play store ou apple store
