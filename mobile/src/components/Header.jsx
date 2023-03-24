@@ -1,9 +1,11 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from '../styles/Header.styles';
 import { useNavigation } from '@react-navigation/native';
+import { ProductsContextApp } from '../context/ProductsContextApp';
 
 const Header = () => {
+  const { card } = useContext(ProductsContextApp);
   const navigation = useNavigation();
   
   return (
@@ -12,18 +14,17 @@ const Header = () => {
       <Image
         style={styles.headerImageShoes}
         source={require('../assets/cognyShoes.png')}
-        // style={{ width: 200, height: 100}}
-      />
+        />
       <TouchableOpacity
         onPress={() => navigation.navigate('ShoppingCard')}
         >
+        <Text style={styles.headerShopping}>{card?.reduce((acc, curr) => acc + Number(curr?.quantity), 0)}</Text>
         <Image
           style={styles.headerImageShopping}
           source={require('../assets/shoppingIcon.png')}
-          // style={{ width: 100, height: 100 }}
-        />
+          />
       </TouchableOpacity>
-
+ 
     </View>
   )
 }
