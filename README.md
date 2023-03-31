@@ -1,3 +1,18 @@
+
+
+## Descrição
+E-commerce de tenis com carrinho de compras para praticar as habilidades adquiridas
+
+
+## Tecnologias
+
+- [React](https://reactjs.org)
+- [React Native](https://facebook.github.io/react-native/)
+- Firebase
+
+
+<!--
+
 <h2 align="center">
   Cogny Web/Mobile Teste
 </h2>
@@ -46,3 +61,5 @@ A entrega do código deve ser realizada através do GitHub seguindo as seguintes
 ## Links úteis
 
 - [Guias Firebase](https://firebase.google.com/docs/guides?authuser=2&%3Bhl=pt&hl=pt#acesse-o-firebase-na-sua-plataforma)
+
+-->
